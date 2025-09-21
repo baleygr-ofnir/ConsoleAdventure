@@ -54,6 +54,8 @@ public class AdventureGame
             }
             Console.Clear();
         }
+
+        Console.WriteLine("Game Over.");
     }
 
     private Player CreateCharacter()
