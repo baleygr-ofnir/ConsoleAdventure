@@ -2,19 +2,19 @@ namespace ConsoleAdventure;
 
 public class Character
 {
-    public Character(string name, int health, int attack, int defense)
+    public string Name = "Unknown";
+    public int Health = 100;
+    public int Defense = 50;
+    public int Attack = 50;
+    public bool Burning = false;
+
+    protected Character(int health, int attack, int defense)
     {
-        Name = name;
         Health = health;
         Defense = defense;
         Attack = attack;
     }
 
-    string Name { get; set; }
-    int Health { get; set; }
-    int Defense { get; set; }
-    int Attack  { get; set; }
-    bool Burning { get; set; }
     Modifier Modifier { get; set; } = new Modifier();
 
     int TakeDamage(int damage)
@@ -37,8 +37,17 @@ public class Character
         }
         return damage;
     }
-    
-    void PerformAttack(Character character) {}
-    
+
+    void PerformAttack(Character character)
+    {
+        
+    }
+
     void ApplyStatusEffects (Character character) {}
+
+    public void Rest()
+    {
+        Console.WriteLine("You rest for a while and regain any lost health...");
+        if 
+    }
 }
