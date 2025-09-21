@@ -1,53 +1,66 @@
-namespace ConsoleAdventure;
+namespace ConsoleAdventure.Classes.Characters;
 
-public class Character
+public abstract class Character
 {
     public string Name = "Unknown";
-    public int Health = 100;
-    public int Defense = 50;
-    public int Attack = 50;
-    public bool Burning = false;
-
-    protected Character(int health, int attack, int defense)
+    public string Role;
+    private readonly int _maxHealth;
+    private int _health;
+    public int Health
     {
+        get => _health;
+        set
+        {
+            if (value > _maxHealth)
+            {
+                _health = _maxHealth;
+            } else if (value < 0)
+            {
+                _health = 0;
+            } else
+            {
+                _health += value;
+            }
+        }
+    }
+    public int Attack;
+    public int Defense;
+    public bool Burning = false;
+    public Modifier DamageModifier { get; set; }
+
+    public Character(string role, int health, int attack, int defense)
+    {
+        Role = role;
+        _maxHealth = health;
         Health = health;
         Defense = defense;
         Attack = attack;
+        DamageModifier = new Modifier();
     }
-
-    Modifier Modifier { get; set; } = new Modifier();
-
-    int TakeDamage(int damage)
+    
+    void TakeDamage()
     {
         int damageTaken = Health - CalculateDamage();
-        return damageTaken;
-        
-        // if (Burning) -1 dmg
+        Health -= damageTaken;
+        Console.WriteLine($"{Role} loses {damageTaken} in health and is now at {Health}");
     }
 
     int CalculateDamage()
     {
         double randomMultiplier = new Random().NextDouble();
         double damageCalc = (randomMultiplier * Health); 
-        int damage = damageCalc > 1 ? (int) Math.Floor(randomMultiplier * (Attack * Modifier.DamageMultiplier * Modifier.NumberOfHits)) : 1;
-        if (Modifier.DamageReductionPercent > 0)
-        {
-            float damageReduction = damage - (damage * Modifier.DamageReductionPercent);
-            damage = damageReduction > 1 ? (int) Math.Floor(damageReduction) : 1;
-        }
+        int damage = damageCalc > 1 ? (int) Math.Floor(randomMultiplier * (Attack * DamageModifier.DamageMultiplier * DamageModifier.NumberOfHits)) : 1;
         return damage;
     }
 
-    void PerformAttack(Character character)
+    void PerformAttack(Character target)
     {
-        
+        Console.WriteLine($"{Role} attacks {target.Role} with {DamageModifier.NumberOfHits} hit(s).");
+        target.TakeDamage();
+        if (DamageModifier.ApplyBurn) target.Burning = true;
     }
-
-    void ApplyStatusEffects (Character character) {}
-
-    public void Rest()
+    public void GetProfile()
     {
-        Console.WriteLine("You rest for a while and regain any lost health...");
-        if 
+        Console.WriteLine($"---\nNAME: {Name}\nROLE: {Role}\nHEALTH: {Health}\nATTACK: {Attack}\nDEFENSE: {Defense}\n---");
     }
 }

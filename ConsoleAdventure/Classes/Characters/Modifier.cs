@@ -1,12 +1,23 @@
 namespace ConsoleAdventure;
 
-public class Modifier
+public record Modifier
 {
-    public float DamageMultiplier { get; set; } = 1.0f;
-    public int NumberOfHits { get; set; } = 1;
-    public bool AreaOfEffect { get; set; } = false;
-    public bool DamageNegation { get; set; } = false;
-    public float DamageReductionPercent { get; set; } = 0.0f;
-    public bool AppliesBurn { get; set; } = false;
-    public float ChanceToStealItem { get; set; } = 0.0f;
+    public float DamageMultiplier { get; set; }
+    public int NumberOfHits { get; set; }
+    public bool ApplyBurn { get; set; }
+    public float DamageReductionPercent;
+    
+    public Modifier
+    (
+       float damageMultiplier = 1.0f,
+       int numberOfHits = 1,
+       bool applyBurn = false,
+       float damageReductionPercent = 0.0f
+    )
+    {
+        DamageMultiplier = damageMultiplier;
+        NumberOfHits = numberOfHits;
+        ApplyBurn = applyBurn;
+        DamageReductionPercent = damageReductionPercent;
+    }
 }

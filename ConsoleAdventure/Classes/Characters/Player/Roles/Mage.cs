@@ -1,9 +1,9 @@
-namespace ConsoleAdventure.Classes.Characters.Roles;
+namespace ConsoleAdventure.Classes.Characters.Player.Roles;
 
-public class Mage : Character
+public class Mage : Player
 {
-    protected Mage(string name, int health, int defense, int attack) : base(name, health, attack, defense)
+    public Mage(string name) : base(name,"Mage", 60,12,3)
     {
-        
+        DamageModifier = new Modifier(applyBurn: true);
     }
 }

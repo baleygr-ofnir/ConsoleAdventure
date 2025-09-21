@@ -1,16 +1,8 @@
-namespace ConsoleAdventure.Classes.Characters.Roles;
+namespace ConsoleAdventure.Classes.Characters.Player.Roles;
 
-public class Player : Character
+public class Knight : Player
 {
-    public string Name;
-    protected Player(string name, int health, int attack, int defense) : base(health, attack, defense)
+    public Knight(string name) : base(name, "Knight", 100, 15, 10)
     {
-        Name = name;
     }
-
-    public void AdventureTime()
-    {
-        // enter adventure mode - risk of enemy encounter 
-    }
-    
 }
