@@ -50,6 +50,11 @@ public abstract class Character
         double randomMultiplier = new Random().NextDouble();
         double damageCalc = (randomMultiplier * Health); 
         int damage = damageCalc > 1 ? (int) Math.Floor(randomMultiplier * (Attack * DamageModifier.DamageMultiplier * DamageModifier.NumberOfHits)) : 1;
+        if (DamageModifier.DamageReductionPercent > 0.0f)
+        {
+            damage = (int)Math.Ceiling(damage * (1 - DamageModifier.DamageReductionPercent));
+            if (damage < 1) damage = 1; // ensure minimum damage of 1
+        }
         return damage;
     }
 
