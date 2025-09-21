@@ -1,6 +1,6 @@
-namespace ConsoleAdventure.Classes.Characters.NonPlayer;
+namespace ConsoleAdventure.Classes.Characters.NonPlayer.EnemyTypes;
 
-public class Cultist : Character
+public class Cultist : NonPlayer
 {
     public Cultist() : base("Cultist", 60, 15, 4)
     {

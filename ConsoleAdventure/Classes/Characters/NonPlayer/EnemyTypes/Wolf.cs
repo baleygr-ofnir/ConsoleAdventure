@@ -1,6 +1,6 @@
-namespace ConsoleAdventure.Classes.Characters.NonPlayer;
+namespace ConsoleAdventure.Classes.Characters.NonPlayer.EnemyTypes;
 
-public class Wolf : Character
+public class Wolf : NonPlayer
 {
     public Wolf() : base("Wolf", 30, 8, 3)
     {

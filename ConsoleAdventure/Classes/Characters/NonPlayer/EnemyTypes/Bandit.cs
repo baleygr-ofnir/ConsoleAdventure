@@ -1,6 +1,6 @@
-namespace ConsoleAdventure.Classes.Characters.NonPlayer;
+namespace ConsoleAdventure.Classes.Characters.NonPlayer.EnemyTypes;
 
-public class Bandit : Character
+public class Bandit : NonPlayer
 {
     public Bandit() : base("Bandit", 50, 12, 5)
     {

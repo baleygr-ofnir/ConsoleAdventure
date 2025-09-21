@@ -1,15 +1,16 @@
 using ConsoleAdventure.Classes.Characters;
 using ConsoleAdventure.Classes.Characters.NonPlayer;
+using ConsoleAdventure.Classes.Characters.NonPlayer.EnemyTypes;
 using ConsoleAdventure.Classes.Characters.Player;
 using ConsoleAdventure.Classes.Characters.Player.Roles;
 namespace ConsoleAdventure.Classes;
 
 public class AdventureGame
 {
-    private bool running = false;
+    private bool running;
     Player Player;
 
-    Character[] Enemies =
+    NonPlayer[] Enemies =
     [
         new Bandit(),
         new Cultist(),
@@ -20,6 +21,7 @@ public class AdventureGame
 
     public AdventureGame()
     {
+        running = true;
         string[] menuOptions =
         [
             "Go On Adventure",
@@ -29,39 +31,46 @@ public class AdventureGame
         ];
         Player = CreateCharacter();
 
-        Player.GetProfile();
-        Console.WriteLine("Press any key to continue...");
-        Console.ReadKey(true);
-        while (!running && Player.Health != 0)
+        Player.GetStatus();
+
+        Console.Clear();
+        while (running && Player.Health != 0)
         {
-            int selectedFunction = SelectionMenu(menuOptions);
+            int selectedFunction = SelectionMenu(menuOptions, "Select player action:");
             switch (selectedFunction)
             {
                 case 0:
-                    Player.AdventureTime();
+                    Player.AdventureTime(Enemies);
+                    break;
+                case 1:
+                    Player.Rest();
+                    break;
+                case 2:
+                    Player.GetStatus();
+                    break;
+                case 3:
+                    running = false;
                     break;
             }
+            Console.Clear();
         }
     }
 
     private Player CreateCharacter()
     {
         Player character = null;
-        string[] roles = ["Knight", "Mage", "Rogue"];
+        
+        string[] roles = ["Knight", "Rogue"];
         Console.Write("Enter name: ");
         string? name = Console.ReadLine();
-        Console.Clear();
+        
         string role;
-        int selectedIndex = SelectionMenu(roles);
-
+        int selectedIndex = SelectionMenu(roles, "Select a role:");
         role = roles[selectedIndex];
         switch (role)
         {
             case "Knight":
                 character = new Knight(name);
-                break;
-            case "Mage":
-                character = new Mage(name);
                 break;
             case "Rogue":
                 character = new Rogue(name);
@@ -71,14 +80,14 @@ public class AdventureGame
         return character;
     }
 
-    private int SelectionMenu(string[] menuOptions)
+    public static int SelectionMenu(string[] menuOptions, string status)
     {
         ConsoleKeyInfo keyPressed;
         int currentIndex = 0;
         do
         {
             Console.Clear();
-            Console.WriteLine("Select role: ");
+            Console.WriteLine($"{status} [Press Enter to Select]:");
             for (int i = 0; i < menuOptions.Length; i++)
             {
                 if (i == currentIndex)
@@ -105,7 +114,7 @@ public class AdventureGame
                     break;
             }
         } while (keyPressed.Key != ConsoleKey.Enter);
-
+        
         return currentIndex;
     }
 }

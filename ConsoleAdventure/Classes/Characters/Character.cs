@@ -5,6 +5,7 @@ public abstract class Character
     public string Name = "Unknown";
     public string Role;
     private readonly int _maxHealth;
+
     private int _health;
     public int Health
     {
@@ -19,13 +20,12 @@ public abstract class Character
                 _health = 0;
             } else
             {
-                _health += value;
+                _health = value;
             }
         }
     }
     public int Attack;
     public int Defense;
-    public bool Burning = false;
     public Modifier DamageModifier { get; set; }
 
     public Character(string role, int health, int attack, int defense)
@@ -37,15 +37,15 @@ public abstract class Character
         Attack = attack;
         DamageModifier = new Modifier();
     }
-    
-    void TakeDamage()
+
+    private void TakeDamage()
     {
-        int damageTaken = Health - CalculateDamage();
+        int damageTaken = CalculateDamage();
         Health -= damageTaken;
         Console.WriteLine($"{Role} loses {damageTaken} in health and is now at {Health}");
     }
 
-    int CalculateDamage()
+    private int CalculateDamage()
     {
         double randomMultiplier = new Random().NextDouble();
         double damageCalc = (randomMultiplier * Health); 
@@ -53,14 +53,10 @@ public abstract class Character
         return damage;
     }
 
-    void PerformAttack(Character target)
+    public void PerformAttack(Character target)
     {
         Console.WriteLine($"{Role} attacks {target.Role} with {DamageModifier.NumberOfHits} hit(s).");
         target.TakeDamage();
-        if (DamageModifier.ApplyBurn) target.Burning = true;
     }
-    public void GetProfile()
-    {
-        Console.WriteLine($"---\nNAME: {Name}\nROLE: {Role}\nHEALTH: {Health}\nATTACK: {Attack}\nDEFENSE: {Defense}\n---");
-    }
+
 }

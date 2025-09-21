@@ -11,13 +11,11 @@ public record Modifier
     (
        float damageMultiplier = 1.0f,
        int numberOfHits = 1,
-       bool applyBurn = false,
        float damageReductionPercent = 0.0f
     )
     {
         DamageMultiplier = damageMultiplier;
         NumberOfHits = numberOfHits;
-        ApplyBurn = applyBurn;
         DamageReductionPercent = damageReductionPercent;
     }
 }
