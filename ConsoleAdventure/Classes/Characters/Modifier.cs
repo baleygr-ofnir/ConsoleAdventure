@@ -4,7 +4,6 @@ public record Modifier
 {
     public float DamageMultiplier { get; set; }
     public int NumberOfHits { get; set; }
-    public bool ApplyBurn { get; set; }
     public float DamageReductionPercent;
     
     public Modifier
