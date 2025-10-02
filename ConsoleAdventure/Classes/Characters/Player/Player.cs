@@ -52,7 +52,7 @@ public class Player : Character
         if (enemy.Health == 0)
         {
             Gold += enemy.GoldReward;
-            Console.WriteLine($"Enemy {enemy.Role} has died and you gained 50 gold.");
+            Console.WriteLine($"Enemy {enemy.Role} has died and you gained {enemy.GoldReward} gold.");
             GetStatus();
         }
     }
